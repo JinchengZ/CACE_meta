@@ -34,7 +34,7 @@ for(i in 1:n.chains){
 }
 
 
-params <- c("CACE", "alpha_z1", "alpha_z2", "alpha_s1", "alpha_b1", 
+params <- c("CACE", "alpha_n", "alpha_a", "alpha_s1", "alpha_b1", 
             "alpha_u", "alpha_v", "pi_c", "pi_n", "pi_a") 
 
 ################# rjags code #########################################################
