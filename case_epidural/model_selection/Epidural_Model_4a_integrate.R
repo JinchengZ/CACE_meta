@@ -35,7 +35,7 @@ for(i in 1:n.chains){
 }
 
 
-################# Model 4 a) random delta_z1 delta_z2 delta_s ####################
+################# Model 4 a) random delta_n delta_a delta_s ####################
 modelString="
 model{
 for (i in 1:n) {
@@ -55,12 +55,12 @@ R[i, 5:8] ~ dmulti(prob[i, 5:8], N1[i])
 probit(u1[i]) <- alpha_u
 probit(v1[i]) <- alpha_v
 
-z1[i] <- alpha_z1 + delta_z1[i]
-delta_z1[i] ~ dnorm(0, tau_z1)
-z2[i] <- alpha_z2 + delta_z2[i]
-delta_z2[i] ~ dnorm(0, tau_z2)
-pi_n[i] <- exp(z1[i])/(1+exp(z1[i])+exp(z2[i]))
-pi_a[i] <- exp(z2[i])/(1+exp(z1[i])+exp(z2[i]))
+n[i] <- alpha_n + delta_n[i]
+delta_n[i] ~ dnorm(0, tau_n)
+a[i] <- alpha_a + delta_a[i]
+delta_a[i] ~ dnorm(0, tau_a)
+pi_n[i] <- exp(n[i])/(1+exp(n[i])+exp(a[i]))
+pi_a[i] <- exp(a[i])/(1+exp(n[i])+exp(a[i]))
 pi_c[i] <- 1-pi_a[i]-pi_n[i]
 
 logit(s1[i]) <- alpha_s1 + delta_s[i]
@@ -70,8 +70,8 @@ logit(b1[i]) <- alpha_b1
 
 CACE <- phi(alpha_u)-phi(alpha_v)
 
-pin <- exp(alpha_z1)/(1+exp(alpha_z1)+exp(alpha_z2))
-pia <- exp(alpha_z2)/(1+exp(alpha_z1)+exp(alpha_z2))
+pin <- exp(alpha_n)/(1+exp(alpha_n)+exp(alpha_a))
+pia <- exp(alpha_a)/(1+exp(alpha_n)+exp(alpha_a))
 pic <- 1-pia-pin
 u1out <- phi(alpha_u)
 v1out <- phi(alpha_v)
@@ -79,12 +79,12 @@ s1out <- ilogit(alpha_s1/sqrt(1+(16*sqrt(3)/(15*pi))^2*(sigma_s^2)))
 b1out <- ilogit(alpha_b1)
 
 # priors
-alpha_z1 ~  dnorm(0, 0.16)
-tau_z1 ~ dgamma(2, 2)
-sigma_z1 <- 1/sqrt(tau_z1)
-alpha_z2 ~ dnorm(0, 0.16)
-tau_z2 ~ dgamma(2, 2)
-sigma_z2 <- 1/sqrt(tau_z2)
+alpha_n ~  dnorm(0, 0.16)
+tau_n ~ dgamma(2, 2)
+sigma_n <- 1/sqrt(tau_n)
+alpha_a ~ dnorm(0, 0.16)
+tau_a ~ dgamma(2, 2)
+sigma_a <- 1/sqrt(tau_a)
 
 alpha_s1 ~  dnorm(0, 0.25)
 tau_s ~ dgamma(2, 2)
@@ -100,7 +100,7 @@ writeLines(modelString, con="../models/epidural_m4a_integration.txt")
 
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
             "pi_n", "pi_a", "pi_c", "pin", "pia", "pic", 
-            "alpha_z1", "alpha_z2", "sigma_z1", "sigma_z2", "sigma_s") 
+            "alpha_n", "alpha_a", "sigma_n", "sigma_a", "sigma_s") 
 jags.m4a <- jags.model(file="../models/epidural_m4a_integration.txt", data=data, inits=init.jags, 
                        n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m4a, n.iter=n.burnin) # burn in
@@ -129,13 +129,13 @@ table_m4a <- rbind(
     quantile(sampledata[, 4], c(.025, .50,  .975)), # b1
     quantile(sampledata[, 9], c(.025, .50,  .975)), # u1
     quantile(sampledata[, 10], c(.025, .50,  .975)), # v1
-    quantile(sampledata[, 2], c(.025, .50,  .975)), # alpha_z1
-    quantile(sampledata[, 3], c(.025, .50,  .975)), # alpha_z2
-    quantile(sampledata[, 7], c(.025, .50,  .975)), # sigma_z1
-    quantile(sampledata[, 8], c(.025, .50,  .975)), # sigma_z2
+    quantile(sampledata[, 2], c(.025, .50,  .975)), # alpha_n
+    quantile(sampledata[, 3], c(.025, .50,  .975)), # alpha_a
+    quantile(sampledata[, 7], c(.025, .50,  .975)), # sigma_n
+    quantile(sampledata[, 8], c(.025, .50,  .975)), # sigma_a
     quantile(sampledata[, 6], c(.025, .50,  .975))  # sigma_s
 )
 rownames(table_m4a) <- c("CACE", "pia", "pin", "pic", "s1", "b1", "u1", "v1", 
-                         "alpha_z1", "alpha_z2", "sigma_z1", "sigma_z2", "sigma_s")
+                         "alpha_n", "alpha_a", "sigma_n", "sigma_a", "sigma_s")
 
 write.table(table_m4a, "table_m4a.txt", sep="\t")

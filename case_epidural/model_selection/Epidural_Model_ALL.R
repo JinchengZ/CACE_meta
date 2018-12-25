@@ -18,7 +18,7 @@ for(i in 1:n.chains){
 
 ################# model 1 #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "alpha_z1", "alpha_z2") 
+            "pic", "pin", "pia", "alpha_n", "alpha_a") 
 jags.m1 <- jags.model(file="../models/m1.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m1, n.iter=n.burnin) # burn in
 samps.m1 <- coda.samples.dic(jags.m1, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -100,7 +100,7 @@ write.table(out3_2d, "../outputs/out3_2d.txt", sep="\t")
 
 ################# Model 2 e) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "alpha_z1", "alpha_z2", "sigma_z1") 
+            "pic", "pin", "pia", "alpha_n", "alpha_a", "sigma_n") 
 jags.m2e <- jags.model(file="../models/m2e.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m2e, n.iter=n.burnin) # burn in
 samps.m2e <- coda.samples.dic(jags.m2e, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -116,7 +116,7 @@ write.table(out3_2e, "../outputs/out3_2e.txt", sep="\t")
 
 
 ################# Model 2 f) #########################################################
-params <- c("CACE", "u1out", "v1out", "s1out", "b1out", "pic", "pin", "pia", "sigma_z2") 
+params <- c("CACE", "u1out", "v1out", "s1out", "b1out", "pic", "pin", "pia", "sigma_a") 
 jags.m2f <- jags.model(file="../models/m2f.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m2f, n.iter=n.burnin) # burn in
 samps.m2f <- coda.samples.dic(jags.m2f, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -133,7 +133,7 @@ write.table(out3_2f, "../outputs/out3_2f.txt", sep="\t")
 
 ################# Model 3 a) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z2", "sigma_s") 
+            "pic", "pin", "pia", "sigma_a", "sigma_s") 
 jags.m3a <- jags.model(file="../models/m3a.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m3a, n.iter=n.burnin) # burn in
 samps.m3a <- coda.samples.dic(jags.m3a, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -150,7 +150,7 @@ write.table(out3_3a, "../outputs/out3_3a.txt", sep="\t")
 
 ################# Model 3 b) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z2", "sigma_b") 
+            "pic", "pin", "pia", "sigma_a", "sigma_b") 
 jags.m3b <- jags.model(file="../models/m3b.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m3b, n.iter=n.burnin) # burn in
 samps.m3b <- coda.samples.dic(jags.m3b, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -166,7 +166,7 @@ write.table(out3_3b, "../outputs/out3_3b.txt", sep="\t")
 
 ################# Model 3 c) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z2", "sigma_u") 
+            "pic", "pin", "pia", "sigma_a", "sigma_u") 
 jags.m3c <- jags.model(file="../models/m3c.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m3c, n.iter=n.burnin) # burn in
 samps.m3c <- coda.samples.dic(jags.m3c, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -183,7 +183,7 @@ write.table(out3_3c, "../outputs/out3_3c.txt", sep="\t")
 
 ################# Model 3 d) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z2", "sigma_v") 
+            "pic", "pin", "pia", "sigma_a", "sigma_v") 
 jags.m3d <- jags.model(file="../models/m3d.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m3d, n.iter=n.burnin) # burn in
 samps.m3d <- coda.samples.dic(jags.m3d, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -200,7 +200,7 @@ write.table(out3_3d, "../outputs/out3_3d.txt", sep="\t")
 
 ################# Model 3 e) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2")  
+            "pic", "pin", "pia", "sigma_n", "sigma_a")  
 jags.m3e <- jags.model(file="../models/m3e.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m3e, n.iter=n.burnin) # burn in
 samps.m3e <- coda.samples.dic(jags.m3e, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -217,7 +217,7 @@ write.table(out3_3e, "../outputs/out3_3e.txt", sep="\t")
 
 ################# Model 4 a) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_s")  
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_s")  
 jags.m4a <- jags.model(file="../models/m4a.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m4a, n.iter=n.burnin) # burn in
 samps.m4a <- coda.samples.dic(jags.m4a, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -233,7 +233,7 @@ write.table(out3_4a, "../outputs/out3_4a.txt", sep="\t")
 
 ################# Model 4 b) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_b") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_b") 
 jags.m4b <- jags.model(file="../models/m4b.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m4b, n.iter=n.burnin) # burn in
 samps.m4b <- coda.samples.dic(jags.m4b, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -249,7 +249,7 @@ write.table(out3_4b, "../outputs/out3_4b.txt", sep="\t")
 
 ################# Model 4 c) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_u") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_u") 
 jags.m4c <- jags.model(file="../models/m4c.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m4c, n.iter=n.burnin) # burn in
 samps.m4c <- coda.samples.dic(jags.m4c, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -265,7 +265,7 @@ write.table(out3_4c, "../outputs/out3_4c.txt", sep="\t")
 
 ################# Model 4 d) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_v") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_v") 
 jags.m4d <- jags.model(file="../models/m4d.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m4d, n.iter=n.burnin) # burn in
 samps.m4d <- coda.samples.dic(jags.m4d, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -315,7 +315,7 @@ write.table(out3_5a, "../outputs/out3_5a.txt", sep="\t")
 
 ################# Model 5 b) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_b", "sigma_s") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_b", "sigma_s") 
 jags.m5b <- jags.model(file="../models/m5b.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m5b, n.iter=n.burnin) # burn in
 samps.m5b <- coda.samples.dic(jags.m5b, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -331,7 +331,7 @@ write.table(out3_5b, "../outputs/out3_5b.txt", sep="\t")
 
 ################# Model 5 c) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_u", "sigma_s") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_u", "sigma_s") 
 jags.m5c <- jags.model(file="../models/m5c.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m5c, n.iter=n.burnin) # burn in
 samps.m5c <- coda.samples.dic(jags.m5c, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -347,7 +347,7 @@ write.table(out3_5c, "../outputs/out3_5c.txt", sep="\t")
 
 ################# Model 5 d) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_v", "sigma_s") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_v", "sigma_s") 
 jags.m5d <- jags.model(file="../models/m5d.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m5d, n.iter=n.burnin) # burn in
 samps.m5d <- coda.samples.dic(jags.m5d, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -363,8 +363,8 @@ write.table(out3_5d, "../outputs/out3_5d.txt", sep="\t")
 
 ################# Model 6 a) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_b", "sigma_u", "sigma_s", 
-            "alpha_z1", "alpha_z2") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_b", "sigma_u", "sigma_s", 
+            "alpha_n", "alpha_a") 
 jags.m6a <- jags.model(file="../models/m6a.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m6a, n.iter=n.burnin) # burn in
 samps.m6a <- coda.samples.dic(jags.m6a, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -380,8 +380,8 @@ write.table(out3_6a, "../outputs/out3_6a.txt", sep="\t")
 
 ################# Model 6 b) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", "sigma_s", "sigma_v", "sigma_u", 
-            "alpha_z1", "alpha_z2") 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", "sigma_s", "sigma_v", "sigma_u", 
+            "alpha_n", "alpha_a") 
 jags.m6b <- jags.model(file="../models/m6b.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m6b, n.iter=n.burnin) # burn in
 samps.m6b <- coda.samples.dic(jags.m6b, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -397,9 +397,9 @@ write.table(out3_6b, "../outputs/out3_6b.txt", sep="\t")
 
 ################# Model 7 a) #########################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "sigma_z1", "sigma_z2", 
+            "pic", "pin", "pia", "sigma_n", "sigma_a", 
             "sigma_b", "sigma_v", "sigma_u", "sigma_s", 
-            "alpha_z1", "alpha_z2") 
+            "alpha_n", "alpha_a") 
 jags.m7a <- jags.model(file="../models/m7a.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m7a, n.iter=n.burnin) # burn in
 samps.m7a <- coda.samples.dic(jags.m7a, variable.names=params, n.iter=n.iter, thin=n.thin)
@@ -417,7 +417,7 @@ write.table(out3_7a, "../outputs/out3_7a.txt", sep="\t")
 
 ################# Model 4 a) Sens 1 ####################################################
 params <- c("CACE", "u1out", "v1out", "s1out", "b1out", 
-            "pic", "pin", "pia", "alpha_z1", "alpha_z2", "sigma_z2", "sigma_s")  
+            "pic", "pin", "pia", "alpha_n", "alpha_a", "sigma_a", "sigma_s")  
 jags.m4a_s1 <- jags.model(file="../models/m4a_s1.txt", data=data, inits=init.jags, n.chains=n.chains, n.adapt=n.adapt)
 update(jags.m4a_s1, n.iter=n.burnin) # burn in
 samps.m4a_s1 <- coda.samples.dic(jags.m4a_s1, variable.names=params, n.iter=n.iter, thin=n.thin)
