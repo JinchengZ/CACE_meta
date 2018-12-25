@@ -18,12 +18,12 @@ probit(u1[i]) <- alpha_u + delta_u[i]
 delta_u[i] ~ dnorm(0, tau_u)
 probit(v1[i]) <- alpha_v
 
-z1[i] <- alpha_z1 + delta_z1[i]
-delta_z1[i] ~ dnorm(0, tau_z1)
-z2[i] <- alpha_z2 + delta_z2[i]
-delta_z2[i] ~ dnorm(0, tau_z2)
-pi_n[i] <- exp(z1[i])/(1+exp(z1[i])+exp(z2[i]))
-pi_a[i] <- exp(z2[i])/(1+exp(z1[i])+exp(z2[i]))
+n[i] <- alpha_n + delta_n[i]
+delta_n[i] ~ dnorm(0, tau_n)
+a[i] <- alpha_a + delta_a[i]
+delta_a[i] ~ dnorm(0, tau_a)
+pi_n[i] <- exp(n[i])/(1+exp(n[i])+exp(a[i]))
+pi_a[i] <- exp(a[i])/(1+exp(n[i])+exp(a[i]))
 pi_c[i] <- 1-pi_a[i]-pi_n[i]
 
 logit(s1[i]) <- alpha_s1
@@ -32,8 +32,8 @@ logit(b1[i]) <- alpha_b1
 
 CACE <- phi(alpha_u/sqrt(1+sigma_u^2))-phi(alpha_v)
 
-pin <- exp(alpha_z1)/(1+exp(alpha_z1)+exp(alpha_z2))
-pia <- exp(alpha_z2)/(1+exp(alpha_z1)+exp(alpha_z2))
+pin <- exp(alpha_n)/(1+exp(alpha_n)+exp(alpha_a))
+pia <- exp(alpha_a)/(1+exp(alpha_n)+exp(alpha_a))
 pic <- 1-pia-pin
 u1out <- phi(alpha_u)
 v1out <- phi(alpha_v)
@@ -41,12 +41,12 @@ s1out <- ilogit(alpha_s1)
 b1out <- ilogit(alpha_b1)
 
 # priors
-alpha_z1 ~  dnorm(0, 0.16)
-tau_z1 ~ dgamma(2, 2)
-sigma_z1 <- 1/sqrt(tau_z1)
-alpha_z2 ~ dnorm(0, 0.16)
-tau_z2 ~ dgamma(2, 2)
-sigma_z2 <- 1/sqrt(tau_z2)
+alpha_n ~  dnorm(0, 0.16)
+tau_n ~ dgamma(2, 2)
+sigma_n <- 1/sqrt(tau_n)
+alpha_a ~ dnorm(0, 0.16)
+tau_a ~ dgamma(2, 2)
+sigma_a <- 1/sqrt(tau_a)
 
 alpha_s1 ~  dnorm(0, 0.25)
 alpha_b1 ~  dnorm(0, 0.25)
